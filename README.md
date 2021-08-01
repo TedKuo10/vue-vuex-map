@@ -24,4 +24,4 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-https://tedkuo10.github.io/vue-vuex-map/dist/
+https://tedkuo10.github.io/vue-vuex-map/dist/index.html
