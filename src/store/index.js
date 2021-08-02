@@ -9,7 +9,8 @@ export default createStore({
     // 存放 API 回傳的縣市/行政區資訊
     location: [],
     // 存放藥局的資訊
-    stores: []
+    stores: [],
+    keywords: ''
   },
   mutations: {
     setCurrCity (state, payload) {
@@ -23,6 +24,9 @@ export default createStore({
     },
     setStores (state, payload) {
       state.stores = payload
+    },
+    setKeywords (state, payload) {
+      state.keywords = payload
     }
   },
   actions: {
@@ -68,9 +72,16 @@ export default createStore({
       })
     },
     districtList (state) {
-      return state.location.find((item) =>
-        item.name === state.currCity ? item.districts : []
-      )
+      // 使用 optional chaining
+      const district = state.location.find((item) => item.name === state.currCity)?.districts || []
+      return district
+    },
+    filteredStores (state) {
+      const { stores } = state
+      const storesList = state.keywords ? stores.filter((item) => item.name.includes(state.keywords)) : stores.filter((item) => {
+        return item.county === state.currCity && item.town === state.currDistrict
+      })
+      return storesList
     }
   }
 })
