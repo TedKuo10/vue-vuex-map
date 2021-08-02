@@ -2,7 +2,7 @@
 <div id="app">
   <aside-menu></aside-menu>
   <!-- 地圖區塊 -->
-  <div class="mask-map" id="mask-map"></div>
+  <div class="mask-map" id="mask-map"> </div>
 </div>
 </template>
 
