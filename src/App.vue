@@ -19,16 +19,7 @@ export default {
     ...mapActions([
       'fetchLocations',
       'fetchStores'
-    ]),
-    test () {
-      const url = 'https://raw.githubusercontent.com/kurotanshi/mask-map/master/raw/area-location.json'
-      this.$http.get(url)
-        .then((res) => {
-          console.log(res)
-        }).catch((err) => {
-          console.log(err)
-        })
-    }
+    ])
   },
   mounted () {
     this.fetchLocations()

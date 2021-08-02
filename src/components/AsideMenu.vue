@@ -3,10 +3,22 @@
   <div class="aside-menu">
     <div class="wraps">
       <label>
-        縣市：<select><option>台北市</option></select>
+        縣市：
+        <select
+          v-model="currCity">
+          <option v-for='(item, index) in cityList' :key='index'>
+            {{ item }}
+          </option>
+        </select>
       </label>
       <label>
-        行政區：<select><option>北投區</option></select>
+        行政區：
+        <select
+          v-model="currDistrict">
+          <option v-for="(d) in districtList" :key="d.id">
+            {{ d.name }}
+          </option>
+        </select>
       </label>
     </div>
 
@@ -90,7 +102,31 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'asideMenu'
+  name: 'asideMenu',
+  computed: {
+    // 依使用者更新表單的狀態，commit 回 vuex store
+    currCity: {
+      get () {
+        return this.$store.state.currCity
+      },
+      set (value) {
+        this.$store.commit('setCurrCity', value)
+      }
+    },
+    currDistrict: {
+      get () {
+        return this.$store.state.currDistrict
+      },
+      set (value) {
+        this.$store.commit('setCurrDistrict', value)
+      }
+    },
+    ...mapGetters([
+      'cityList',
+      'districtList'
+    ])
+  }
 }
 </script>

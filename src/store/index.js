@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import axios from 'axios'
+import axios from 'axios' // 在 store 中需要引入 axios 才能用，全域宣告無法
 
 export default createStore({
   state: {
@@ -43,7 +43,17 @@ export default createStore({
       axios.get(url)
         .then((res) => {
           // console.log(res)
-          context.commit('setStores', res.data.features)
+          // 整理資料格式，拆出經緯度
+          const rawData = res.data.features
+          const data = rawData.map((item) => {
+            return {
+              ...item.properties,
+              latitude: item.geometry.coordinates[0],
+              longitude: item.geometry.coordinates[0]
+            }
+          })
+
+          context.commit('setStores', data)
         }).catch((err) => {
           console.log(err)
         })
@@ -52,6 +62,15 @@ export default createStore({
   modules: {
   },
   getters: {
-
+    cityList (state) {
+      return state.location.map((item) => {
+        return item.name
+      })
+    },
+    districtList (state) {
+      return state.location.find((item) =>
+        item.name === state.currCity ? item.districts : []
+      )
+    }
   }
 })
