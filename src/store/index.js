@@ -10,7 +10,9 @@ export default createStore({
     location: [],
     // 存放藥局的資訊
     stores: [],
-    keywords: ''
+    keywords: '',
+    showModal: false,
+    infoBoxSid: null
   },
   mutations: {
     setCurrCity (state, payload) {
@@ -27,6 +29,12 @@ export default createStore({
     },
     setKeywords (state, payload) {
       state.keywords = payload
+    },
+    setShowModal (state, payload) {
+      state.showModal = payload
+    },
+    setInfoBoxSid (state, payload) {
+      state.infoBoxSid = payload
     }
   },
   actions: {

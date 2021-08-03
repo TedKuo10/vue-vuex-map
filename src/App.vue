@@ -2,18 +2,21 @@
 <div id="app">
   <aside-menu></aside-menu>
   <!-- 地圖區塊 -->
-  <div class="mask-map" id="mask-map"> </div>
+  <div class="mask-map" id="mask-map"></div>
+  <light-box></light-box>
 </div>
 </template>
 
 <script>
 import AsideMenu from './components/AsideMenu.vue'
+import LightBox from './components/LightBox.vue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
   components: {
-    AsideMenu
+    AsideMenu,
+    LightBox
   },
   methods: {
     ...mapActions([
