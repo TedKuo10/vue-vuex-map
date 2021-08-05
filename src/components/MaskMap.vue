@@ -19,16 +19,27 @@ export default {
   mounted () {
     this.getGeo()
     // 將地圖初始化
-    this.map = L.map('mask-map', {
-      center: [this.latitude, this.longitude],
-      zoom: 18
-    })
+    // this.t()
+    // this.map = L.map('mask-map', {
+    //   center: [this.latitude, this.longitude],
+    //   zoom: 18
+    // })
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(this.map)
+    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(this.map)
   },
   methods: {
+    t () {
+      this.map = L.map('mask-map', {
+        center: [this.latitude, this.longitude],
+        zoom: 18
+      })
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(this.map)
+    },
     getGeo () {
       if (!navigator.geolocation) {
         alert('無法取得當前位置')
@@ -37,6 +48,8 @@ export default {
           console.log(this)
           this.latitude = position.coords.latitude
           this.longitude = position.coords.longitude
+
+          this.t()
         })
       }
     }
