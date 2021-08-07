@@ -90,6 +90,9 @@ export default createStore({
         return item.county === state.currCity && item.town === state.currDistrict
       })
       return storesList
+    },
+    currDistrictInfo (state, getters) {
+      return getters.districtList.find((d) => d.name === state.currDistrict) || {}
     }
   }
 })
