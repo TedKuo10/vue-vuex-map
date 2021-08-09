@@ -61,7 +61,7 @@ export default createStore({
             return {
               ...item.properties,
               latitude: item.geometry.coordinates[0],
-              longitude: item.geometry.coordinates[0]
+              longitude: item.geometry.coordinates[1]
             }
           })
 

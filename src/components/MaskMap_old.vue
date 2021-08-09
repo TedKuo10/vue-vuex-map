@@ -12,22 +12,10 @@ export default {
     return {
       // 因為不會在別的地方使用 map，所以不需要丟到 vuex
       map: {},
-      latitude: 25.03,
-      longitude: 121.55,
+      // latitude: 25.03,
+      // longitude: 121.55,
       markers: []
     }
-  },
-  mounted () {
-    this.getGeo()
-    // 將地圖初始化
-    // this.map = L.map('mask-map', {
-    //   center: [this.latitude, this.longitude],
-    //   zoom: 18
-    // })
-
-    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    // }).addTo(this.map)
   },
   methods: {
     initMap () {
@@ -55,23 +43,25 @@ export default {
     },
     addMarker (item) {
       // 標記的圖示
-      const ICON = {
+      const ICON = L.icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
         iconSize: [25, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
-      }
+      })
+      // 將標記放置到地圖上
+      // const marker =
+      L.marker([item.longitude, item.latitude], { icon: ICON })
+        .addTo(this.map)
+        .bindPopup(`<h2 class="popup-name">${item.name}</h2>`)
 
-      // 將 icon 放置到地圖上
-      const marker = L.marker([item.longitude, item.latitude], { icon: ICON }).addTo(this.map).bindPopup(`<h2 class="popup-name">${item.name}</h2>`)
+      // marker.markerId = item.id
+      // marker.lng = item.longitude
+      // marker.lat = item.latitude
 
-      marker.markerId = item.id
-      marker.lng = item.longitude
-      marker.lat = item.latitude
-
-      this.markers.push(marker)
+      // this.markers.push(marker)
     },
     clearMarkers () {
       // 清除地圖所有標記
@@ -100,9 +90,23 @@ export default {
       this.map.panTo(new L.LatLng(dist.latitude, dist.longitude))
     },
     filteredStores (stores) {
-      this.clearMarkers()
+      // 先清除原有 marker
+      // this.clearMarkers()
+      // 根據藥局資訊加上對應 marker
       stores.forEach((element) => this.addMarker(element))
     }
+  },
+  mounted () {
+    // this.getGeo()
+    // 將地圖初始化
+    this.map = L.map('mask-map', {
+      center: [25.03, 121.55],
+      zoom: 18
+    })
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map)
   }
 }
 </script>

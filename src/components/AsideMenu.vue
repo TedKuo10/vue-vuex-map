@@ -35,6 +35,7 @@
       <li class="store-info wraps"
         v-for="s in filteredStores"
         :key="s.id"
+        @click="$emit('triggerMarkerPopup', s.id)"
       >
         <h1 v-html="keywordHighlight(s.name)"></h1>
 

@@ -1,8 +1,8 @@
 <template>
 <div id="app">
-  <aside-menu></aside-menu>
+  <aside-menu @triggerMarkerPopup="openPopup" ref="menu"></aside-menu>
   <!-- 地圖區塊 -->
-  <mask-map></mask-map>
+  <mask-map ref="map"></mask-map>
   <light-box></light-box>
 </div>
 </template>
@@ -24,7 +24,10 @@ export default {
     ...mapActions([
       'fetchLocations',
       'fetchStores'
-    ])
+    ]),
+    openPopup (id) {
+      this.$refs.map.triggerPopup(id)
+    }
   },
   mounted () {
     this.fetchLocations()
